@@ -49,10 +49,14 @@ spring:
           uri: lb://producto-service
           predicates:
             - Path=/producto/**
+          filters:
+            - AuthFilter
         - id: categoria-service
           uri: lb://categoria-service
           predicates:
             - Path=/categoria/**
+          filters:
+            - AuthFilter
         - id: ms-pago-service
           uri: lb://ms-pago-service
           predicates:
