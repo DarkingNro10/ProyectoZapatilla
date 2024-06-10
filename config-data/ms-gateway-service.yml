@@ -89,3 +89,9 @@ spring:
             - Path=/factura/**
           filters:
             - AuthFilter
+        - id: ms-carrito-service
+          uri: lb://ms-carrito-service
+          predicates:
+            - Path=/carrito/**
+          filters:
+            - AuthFilter
