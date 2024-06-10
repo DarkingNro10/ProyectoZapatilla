@@ -28,8 +28,8 @@ public class CarritoController {
     }
 
     @PostMapping
-    public CarritoItem agregarItem(@RequestBody CarritoItem item) {
-        return carritoService.agregarItemAlCarrito(item);
+    public CarritoItem guardarItemEnCarrito(@RequestBody CarritoItem item) {
+        return carritoService.guardarItemEnCarrito(item);
     }
 
     @CircuitBreaker(name = "carritoListarPorIdCB", fallbackMethod = "fallBackCarritoListarPorIdCB")
