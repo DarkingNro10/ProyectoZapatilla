@@ -27,7 +27,7 @@ public class ProductoController {
         return ResponseEntity.ok(productoService.guardar(producto));
     }
 
-    @PutMapping()
+    @PutMapping("/{id}")
     public ResponseEntity<Producto> update(@RequestBody Producto producto) {
         return ResponseEntity.ok(productoService.actualizar(producto));
     }
