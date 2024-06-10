@@ -7,7 +7,6 @@ import java.util.Optional;
 
 public interface ProveedorService {
     public List<Proveedor> listar();
-
     public Proveedor guardar(Proveedor proveedor);
 
     public Proveedor actualizar(Proveedor proveedor);

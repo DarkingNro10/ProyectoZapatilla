@@ -25,7 +25,6 @@ public class ProveedorServiceImpl implements ProveedorService  {
     public Proveedor guardar(Proveedor proveedor) {
         return proveedorRespository.save(proveedor);
     }
-
     @Override
     public Proveedor actualizar(Proveedor proveedor) {
         return proveedorRespository.save(proveedor);
