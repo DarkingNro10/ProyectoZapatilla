@@ -17,6 +17,11 @@ public class CarritoServiceImpl implements CarritoService {
 
     @Autowired
     private CarritoRepository carritoRepository;
+
+    @Override
+    public CarritoItem guardarItemEnCarrito(CarritoItem item) {
+        return carritoRepository.save(item);
+    }
     @Override
     public List<CarritoItem> obtenerTodosLosItems() {
         return carritoRepository.findAll();

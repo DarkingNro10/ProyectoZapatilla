@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@RestController
+@RequestMapping("/proveedor")
 public class ProveedorController {
-
 
     @Autowired
     private ProveedorService proveedorService;
@@ -24,9 +24,10 @@ public class ProveedorController {
     }
 
     @PostMapping
-    public ResponseEntity<Proveedor> save(@RequestBody Proveedor proveedor) {
+    public ResponseEntity<Proveedor> guardarProveedor(@RequestBody Proveedor proveedor) {
         return ResponseEntity.ok(proveedorService.guardar(proveedor));
     }
+
 
     @PutMapping()
     public ResponseEntity<Proveedor> update(@RequestBody Proveedor proveedor) {

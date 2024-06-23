@@ -9,11 +9,11 @@ import java.util.Optional;
 
 public interface CarritoService {
 
-
+    public CarritoItem guardarItemEnCarrito(CarritoItem item);
     public List<CarritoItem> obtenerTodosLosItems();
     public CarritoItem agregarItemAlCarrito (CarritoItem item);
     public  CarritoItem vaciarCarrito (CarritoItem item);
-    public Optional<CarritoItem>ListarPorId(Integer id);
+        public Optional<CarritoItem>ListarPorId(Integer id);
     public void vaciarCarrito(Integer id);
 
 }
