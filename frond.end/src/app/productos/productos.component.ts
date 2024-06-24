@@ -39,6 +39,7 @@ export class ProductosComponent implements OnInit {
           alert('Producto eliminado con éxito.');
         },
         error => {
+          console.log(producto);
           alert('Error al eliminar el producto.');
         }
       );
