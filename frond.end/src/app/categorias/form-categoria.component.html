@@ -1,0 +1,26 @@
+<div class="container">
+  <h1>{{titulo}}</h1>
+  <form (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="titulo" class="form-label">Título</label>
+      <input type="text" class="form-control" id="titulo" [(ngModel)]="categoria.titulo" name="titulo" required>
+    </div>
+    <div class="mb-3">
+      <label for="descripccion" class="form-label">Descripción</label>
+      <input type="text" class="form-control" id="descripccion" [(ngModel)]="categoria.descripccion" name="descripccion" required>
+    </div>
+    <div class="mb-3">
+      <label for="etiqueta" class="form-label">Etiqueta</label>
+      <input type="text" class="form-control" id="etiqueta" [(ngModel)]="categoria.etiqueta" name="etiqueta" required>
+    </div>
+    <div class="mb-3">
+      <label for="color" class="form-label">Color</label>
+      <input type="color" class="form-control" id="color" [(ngModel)]="categoria.color" name="color" required>
+    </div>
+    <button type="submit" class="btn btn-primary" *ngIf="!categoria.id else elseBlock">Registrar</button>
+
+    <ng-template #elseBlock>
+      <button type="submit" class="btn btn-success">Actualizar</button>
+    </ng-template>
+  </form>
+</div>

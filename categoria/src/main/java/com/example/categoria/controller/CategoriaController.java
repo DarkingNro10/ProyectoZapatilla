@@ -6,6 +6,7 @@ import com.example.categoria.service.CategoriaService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,25 +28,32 @@ public class CategoriaController {
         return ResponseEntity.ok(categoriaService.guardar(categoria));
     }
 
-    @PutMapping()
-    public ResponseEntity<Categoria> update(@RequestBody Categoria categoria) {
-        return ResponseEntity.ok(categoriaService.actualizar(categoria));
+    @PutMapping("/{id}")
+    public ResponseEntity<Categoria> update(@PathVariable Integer id, @RequestBody Categoria categoria) {
+        return categoriaService.actualizar(id, categoria)
+                .map(updatedCategoria -> ResponseEntity.ok().body(updatedCategoria))
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 
     @CircuitBreaker(name = "listByIdCB", fallbackMethod = "fallBacklistById")
     @GetMapping("/{id}")
     public ResponseEntity<Categoria> listById(@PathVariable(required = true) Integer id) {
-        return ResponseEntity.ok().body(categoriaService.listarPorId(id).get());
+        Optional<Categoria> categoria = categoriaService.listarPorId(id);
+        return categoria.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 
     @CircuitBreaker(name = "deleteByIdCB", fallbackMethod = "fallBackDeleteById")
     @DeleteMapping("/{id}")
-    public String deleteById(@PathVariable(required = true) Integer id) {
-        categoriaService.eliminarPorId(id);
-        return "Eliminacion Correcta";
+    public ResponseEntity<String> deleteById(@PathVariable(required = true) Integer id) {
+        try {
+            categoriaService.eliminarPorId(id);
+            return ResponseEntity.ok("Eliminacion Correcta");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al eliminar el registro.");
+        }
     }
 
-    // resilencia
+    // Resiliencia
     private ResponseEntity<Categoria> fallBacklistById(@PathVariable(required = true) Integer id, RuntimeException e) {
         Categoria categoria = new Categoria();
         categoria.setId(90000);
@@ -59,5 +67,4 @@ public class CategoriaController {
         // Aquí puedes devolver una respuesta alternativa en caso de error, por ejemplo:
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al eliminar el registro.");
     }
-
 }

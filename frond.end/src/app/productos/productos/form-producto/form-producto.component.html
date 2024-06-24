@@ -1,0 +1,37 @@
+<div class="container">
+  <h1>{{titulo}}</h1>
+  <form (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="producto.nombre" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="descripcion" class="form-label">Descripción</label>
+      <input type="text" class="form-control" id="descripcion" name="descripcion" [(ngModel)]="producto.descripcion" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="costo" class="form-label">Costo</label> <!-- Cambiar desde Precio a Costo -->
+      <input type="number" class="form-control" id="costo" name="costo" [(ngModel)]="producto.costo" required> <!-- Cambiar desde precio a costo -->
+    </div>
+
+    <div class="mb-3">
+      <label for="proveedor" class="form-label">Proveedor</label> <!-- Cambiar desde Marca a Proveedor -->
+      <input type="text" class="form-control" id="proveedor" name="proveedor" [(ngModel)]="producto.proveedor" required> <!-- Cambiar desde marca a proveedor -->
+    </div>
+
+    <div class="mb-3">
+      <label for="categoria">Categoría:</label>
+      <select id="categoria" name="categoria" class="form-control" [(ngModel)]="producto.categoriaId">
+        <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.titulo }}</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-success" *ngIf="!producto.id else elseBlock">Registrar</button>
+
+    <ng-template #elseBlock>
+      <button type="submit" class="btn btn-success">Actualizar</button>
+    </ng-template>
+  </form>
+</div>

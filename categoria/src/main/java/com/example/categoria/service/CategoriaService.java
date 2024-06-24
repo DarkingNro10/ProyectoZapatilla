@@ -11,7 +11,7 @@ public interface CategoriaService {
 
     public Categoria guardar(Categoria categoria);
 
-    public Categoria actualizar(Categoria categoria);
+    public Optional<Categoria> actualizar(Integer id, Categoria categoria);
 
     public Optional<Categoria> listarPorId(Integer id);
 

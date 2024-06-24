@@ -10,7 +10,6 @@ import com.example.categoria.repository.CategoriaRepository;
 import com.example.categoria.service.CategoriaService;
 
 @Service
-
 public class CategoriaServiceImpl implements CategoriaService {
     @Autowired
     private CategoriaRepository categoriaRepository;
@@ -26,8 +25,12 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
-    public Categoria actualizar(Categoria categoria) {
-        return categoriaRepository.save(categoria);
+    public Optional<Categoria> actualizar(Integer id, Categoria categoria) {
+        return categoriaRepository.findById(id).map(existingCategoria -> {
+            existingCategoria.setTitulo(categoria.getTitulo());
+            existingCategoria.setDescripccion(categoria.getDescripccion());
+            return categoriaRepository.save(existingCategoria);
+        });
     }
 
     @Override
