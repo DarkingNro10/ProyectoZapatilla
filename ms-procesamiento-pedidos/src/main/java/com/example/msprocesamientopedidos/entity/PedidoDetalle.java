@@ -1,22 +1,28 @@
 package com.example.msprocesamientopedidos.entity;
 
 import com.example.msprocesamientopedidos.dto.Producto;
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import jakarta.persistence.*;
+import java.math.BigDecimal;
 
-@Entity
 @Data
+@Entity
+@Table(name = "pedido_detalles")
 public class PedidoDetalle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Double cantidad;
-    private Double precio;
+
     private Integer productoId;
+    private Integer cantidad;
+    private BigDecimal subtotal;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pedido_id", nullable = false)
+    @JsonBackReference
+    private Pedido pedido;
+
     @Transient
     private Producto producto;
-    public PedidoDetalle() {
-        this.cantidad = (double) 0;
-        this.precio = (double) 0;
-    }
 }

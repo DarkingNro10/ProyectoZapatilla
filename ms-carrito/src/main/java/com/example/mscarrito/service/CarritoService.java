@@ -1,19 +1,17 @@
 package com.example.mscarrito.service;
 
-
 import com.example.mscarrito.entity.CarritoItem;
-import com.example.mscarrito.repository.CarritoRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
 public interface CarritoService {
-
-    public CarritoItem guardarItemEnCarrito(CarritoItem item);
-    public List<CarritoItem> obtenerTodosLosItems();
-    public CarritoItem agregarItemAlCarrito (CarritoItem item);
-    public  CarritoItem vaciarCarrito (CarritoItem item);
-        public Optional<CarritoItem>ListarPorId(Integer id);
-    public void vaciarCarrito(Integer id);
-
+    CarritoItem guardarItemEnCarrito(CarritoItem item);
+    List<CarritoItem> obtenerTodosLosItems();
+    CarritoItem agregarItemAlCarrito(CarritoItem item);
+    Optional<CarritoItem> listarPorId(Integer id);
+    void vaciarCarrito(Integer id);
+    List<CarritoItem> obtenerItemsPorUsuario(Integer userId);
+    BigDecimal calcularPrecioTotalPorUsuario(Integer userId);
 }

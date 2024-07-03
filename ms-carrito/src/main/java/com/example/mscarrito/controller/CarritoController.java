@@ -2,49 +2,41 @@ package com.example.mscarrito.controller;
 
 import com.example.mscarrito.entity.CarritoItem;
 import com.example.mscarrito.service.CarritoService;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/carrito")
 public class CarritoController {
 
-    private final CarritoService carritoService;
-
     @Autowired
-    public CarritoController(CarritoService carritoService) {
-        this.carritoService = carritoService;
+    private CarritoService carritoService;
+
+    @PostMapping("/add")
+    public ResponseEntity<CarritoItem> addToCart(@RequestBody CarritoItem carritoItem) {
+        CarritoItem savedItem = carritoService.agregarItemAlCarrito(carritoItem);
+        return ResponseEntity.ok(savedItem);
     }
 
-    @GetMapping
-    public List<CarritoItem> obtenerItems() {
-        return carritoService.obtenerTodosLosItems();
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<CarritoItem>> getCartItems(@PathVariable Integer userId) {
+        List<CarritoItem> cartItems = carritoService.obtenerItemsPorUsuario(userId);
+        return ResponseEntity.ok(cartItems);
     }
 
-    @PostMapping
-    public CarritoItem guardarItemEnCarrito(@RequestBody CarritoItem item) {
-        return carritoService.guardarItemEnCarrito(item);
+    @GetMapping("/total/{userId}")
+    public ResponseEntity<BigDecimal> getTotalPrice(@PathVariable Integer userId) {
+        BigDecimal totalPrice = carritoService.calcularPrecioTotalPorUsuario(userId);
+        return ResponseEntity.ok(totalPrice);
     }
 
-    @CircuitBreaker(name = "carritoListarPorIdCB", fallbackMethod = "fallBackCarritoListarPorIdCB")
-    @GetMapping("/{id}")
-    public ResponseEntity<CarritoItem> listById(@PathVariable(required = true) Integer id) {
-        return ResponseEntity.ok().body(carritoService.ListarPorId(id).get());
+    @DeleteMapping("/remove/{id}")
+    public ResponseEntity<String> removeFromCart(@PathVariable Integer id) {
+        carritoService.vaciarCarrito(id);
+        return ResponseEntity.ok("Producto eliminado del carrito");
     }
-
-    @DeleteMapping("/{id}")
-    public CarritoItem vaciarCarrito(@RequestBody CarritoItem item) {
-        return carritoService.vaciarCarrito(item);
-    }
-    private ResponseEntity<CarritoItem> fallBackProductoListarPorIdCB(@PathVariable(required = true) Integer id, RuntimeException e) {
-        CarritoItem carritoItem = new CarritoItem();
-        carritoItem.setId(90000);
-        return ResponseEntity.ok().body(carritoItem);
-}
 }

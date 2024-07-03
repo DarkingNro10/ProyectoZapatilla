@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <h1 class="center-text">New Products</h1>
+    <ng-container *ngFor="let item of productData">
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <a>
+            </a>
+            <p class="card-text"><strong>Price: {{item.costo}} &dollar;</strong></p>
+            <p class="card-text">{{item.nombre}}</p>
+            <div>
+              <a [routerLink]="['/product', item.id]" class="btn btn-primary">Shop Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

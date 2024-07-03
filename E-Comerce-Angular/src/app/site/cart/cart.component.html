@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="card-table">
+    <div class="card-product">
+      <table class="table table-responsive">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nombre del Producto</th>
+            <th>Precio del Producto</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of cartItems; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.productName }}</td>
+            <td>{{ item.productPrice }}</td>
+            <td>{{ item.cantidad }}</td>
+            <td>{{ item.subtotal }}</td>
+            <td>
+              <button (click)="removeFromCart(item.id)" class="btn btn-danger">Eliminar</button>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4"></td>
+            <td><strong>Total: {{ totalAmount | currency }}</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
