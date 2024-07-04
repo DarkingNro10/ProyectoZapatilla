@@ -1,1 +1,31 @@
-<p>procesamiento-de-pedidos works!</p>
+<!-- Main Content -->
+<div class="container">
+  <h2 class="page-title">Procesamiento de Pedidos</h2>
+  <button (click)="procesarPedido()" class="btn btn-primary">Procesar Pedido</button>
+  <div *ngIf="pedido" class="pedido-details">
+    <h3>Pedido ID: {{ pedido.id }}</h3>
+    <p>Cliente ID: {{ pedido.clienteId }}</p>
+    <p>Total Amount: {{ pedido.totalAmount | currency }}</p>
+    <h4>Detalle:</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Producto ID</th>
+          <th>Cantidad</th>
+          <th>Subtotal</th>
+          <th>Nombre del Producto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detalle of pedido?.detalle">
+          <td>{{ detalle.productoId }}</td>
+          <td>{{ detalle.cantidad }}</td>
+          <td>{{ detalle.subtotal | currency }}</td>
+          <td>{{ detalle.producto?.nombre || 'N/A' }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button (click)="descargarPdf()" class="btn btn-secondary">Descargar PDF</button>
+  </div>
+</div>
+

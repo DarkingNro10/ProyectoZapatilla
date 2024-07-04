@@ -1,4 +1,3 @@
-// src/app/models/carrito.ts
 import { Categoria } from './categoria'; // Ajusta la ruta según la estructura de tu proyecto
 
 export class Carrito {
@@ -9,6 +8,7 @@ export class Carrito {
   cantidad: number;
   subtotal: number;
   categoria: Categoria | null;
+  userId: number; // Agregar userId
 
   constructor() {
     this.id = 0;
@@ -18,5 +18,6 @@ export class Carrito {
     this.cantidad = 1;
     this.subtotal = 0;
     this.categoria = null;
+    this.userId = 1; // Valor predeterminado
   }
 }

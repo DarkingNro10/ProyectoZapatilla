@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Carrito } from '../models/carrito';
 
 @Injectable({
@@ -8,8 +8,6 @@ import { Carrito } from '../models/carrito';
 })
 export class CartService {
   private baseUrl = 'http://localhost:8080/carrito';
-
-  public search = new BehaviorSubject<string>("");
 
   constructor(private http: HttpClient) { }
 
@@ -21,11 +19,7 @@ export class CartService {
     return this.http.get<Carrito[]>(`${this.baseUrl}/${userId}`);
   }
 
-  getTotalPrice(userId: number): Observable<number> {
-    return this.http.get<number>(`${this.baseUrl}/total/${userId}`);
-  }
-
-  removeFromCart(id: number): Observable<string> {
-    return this.http.delete<string>(`${this.baseUrl}/remove/${id}`);
+  removeFromCart(id: number): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${this.baseUrl}/remove/${id}`);
   }
 }

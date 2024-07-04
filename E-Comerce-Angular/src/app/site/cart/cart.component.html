@@ -5,30 +5,31 @@
         <thead>
           <tr>
             <th>No</th>
-            <th>Nombre del Producto</th>
-            <th>Precio del Producto</th>
-            <th>Cantidad</th>
+            <th>Product name</th>
+            <th>Product price</th>
+            <th>Quantity</th>
             <th>Subtotal</th>
-            <th>Acción</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of cartItems; let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ item.productName }}</td>
-            <td>{{ item.productPrice }}</td>
+            <td>{{ item.productPrice | currency }}</td>
             <td>{{ item.cantidad }}</td>
-            <td>{{ item.subtotal }}</td>
+            <td>{{ item.subtotal | currency }}</td>
             <td>
-              <button (click)="removeFromCart(item.id)" class="btn btn-danger">Eliminar</button>
+              <button (click)="removeFromCart(item.id)" class="btn btn-danger">
+                <i class="fas fa-trash"></i> Eliminar
+              </button>
             </td>
-          </tr>
-          <tr>
-            <td colspan="4"></td>
-            <td><strong>Total: {{ totalAmount | currency }}</strong></td>
           </tr>
         </tbody>
       </table>
     </div>
+  </div>
+  <div class="d-flex justify-content-between mt-4">
+    <button class="btn btn-primary" (click)="confirmarCompra()">Confirmar compra, métodos de pago y generar boucher PDF</button>
   </div>
 </div>

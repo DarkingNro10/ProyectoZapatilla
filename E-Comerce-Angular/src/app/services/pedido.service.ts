@@ -6,28 +6,24 @@ import { Pedido } from '../models/pedido';
 @Injectable({
   providedIn: 'root'
 })
-export class ClienteService {
-  private baseUrl = 'http://localhost:8080/pedido'; // Ajusta la URL según tu backend
+export class PedidoService {
+  private baseUrl = 'http://localhost:8080/pedido';
 
   constructor(private http: HttpClient) { }
 
-  getClientes(): Observable<Pedido[]> {
-    return this.http.get<Pedido[]>(`${this.baseUrl}`);
+  procesarPedido(userId: number): Observable<Pedido> {
+    const pedido = {
+      clienteId: 1, // Establece el clienteId a 1
+      userId: userId
+    };
+    return this.http.post<Pedido>(`${this.baseUrl}/procesar/${userId}`, pedido);
   }
 
-  getCliente(id: number): Observable<Pedido> {
+  getPedidoById(id: number): Observable<Pedido> {
     return this.http.get<Pedido>(`${this.baseUrl}/${id}`);
   }
 
-  createCliente(cliente: Pedido): Observable<Pedido> {
-    return this.http.post<Pedido>(this.baseUrl, cliente);
-  }
-
-  updateCliente(cliente: Pedido): Observable<Pedido> {
-    return this.http.put<Pedido>(`${this.baseUrl}/${cliente.id}`, cliente);
-  }
-
-  deleteCliente(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  generatePdf(id: number): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/pdf/${id}`, { responseType: 'blob' });
   }
 }

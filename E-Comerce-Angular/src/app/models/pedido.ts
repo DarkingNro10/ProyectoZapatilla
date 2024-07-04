@@ -1,22 +1,19 @@
+// src/app/models/pedido.ts
 import { PedidoDetalle } from './pedido-detalle';
 import { Cliente } from './cliente';
 
 export class Pedido {
   id: number;
-  serie: string;
-  numero: string;
-  descripcion: string;
   clienteId: number;
+  totalAmount: number;
   detalle: PedidoDetalle[];
-  cliente: Cliente;
+  cliente: Cliente | null;
 
   constructor() {
     this.id = 0;
-    this.serie = '';
-    this.numero = '';
-    this.descripcion = '';
     this.clienteId = 0;
+    this.totalAmount = 0;
     this.detalle = [];
-    this.cliente = new Cliente();
+    this.cliente = null;
   }
 }

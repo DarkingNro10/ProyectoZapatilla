@@ -7,8 +7,8 @@ import { AboutComponent } from './about/about.component';
 import { CartComponent } from './cart/cart.component';
 import { ProductComponent } from './product/product.component';
 import { FilterPipe } from './../shared/filter.pipe';
-import { ProcesamientoDePedidosComponent } from './procesamiento-de-pedidos/procesamiento-de-pedidos.component';
 import { FormsModule } from '@angular/forms';
+import { ProcesamientoDePedidosComponent } from './procesamiento-de-pedidos/procesamiento-de-pedidos.component';
 
 @NgModule({
   declarations: [

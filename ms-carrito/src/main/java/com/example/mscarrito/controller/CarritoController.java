@@ -7,7 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/carrito")
@@ -35,8 +37,11 @@ public class CarritoController {
     }
 
     @DeleteMapping("/remove/{id}")
-    public ResponseEntity<String> removeFromCart(@PathVariable Integer id) {
+    public ResponseEntity<Map<String, String>> removeFromCart(@PathVariable Integer id) {
         carritoService.vaciarCarrito(id);
-        return ResponseEntity.ok("Producto eliminado del carrito");
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Producto eliminado del carrito");
+        return ResponseEntity.ok(response);
     }
+
 }
