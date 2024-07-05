@@ -9,7 +9,6 @@ import { ProductComponent } from './product/product.component';
 import { FilterPipe } from './../shared/filter.pipe';
 import { FormsModule } from '@angular/forms';
 import { ProcesamientoDePedidosComponent } from './procesamiento-de-pedidos/procesamiento-de-pedidos.component';
-import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,6 @@ import { LoginComponent } from './login/login.component';
     ProductComponent,
     FilterPipe,
     ProcesamientoDePedidosComponent,
-    LoginComponent
   ],
   imports: [
     CommonModule,

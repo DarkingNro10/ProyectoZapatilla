@@ -9,10 +9,23 @@ import { Cliente } from '../models/cliente';
 })
 export class ClienteService {
   private baseUrl = 'http://localhost:8080/cliente';
+  private isAuthenticated = false;
 
   constructor(private http: HttpClient) { }
 
   getClienteById(id: number): Observable<Cliente> {
     return this.http.get<Cliente>(`${this.baseUrl}/${id}`);
+  }
+
+  login(dni: string, telefono: string): Observable<Cliente> {
+    return this.http.get<Cliente>(`${this.baseUrl}/login?dni=${dni}&telefono=${telefono}`);
+  }
+
+  setLoggedIn(value: boolean) {
+    this.isAuthenticated = value;
+  }
+
+  isLoggedIn(): boolean {
+    return this.isAuthenticated;
   }
 }

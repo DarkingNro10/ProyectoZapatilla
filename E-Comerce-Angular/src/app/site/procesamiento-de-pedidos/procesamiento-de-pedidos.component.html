@@ -5,7 +5,7 @@
   <div *ngIf="pedido" class="pedido-details">
     <h3>Pedido ID: {{ pedido.id }}</h3>
     <p>Cliente ID: {{ pedido.clienteId }}</p>
-    <p>Total Amount: {{ pedido.totalAmount | currency }}</p>
+    <p>Precio Total: {{ pedido.totalAmount | currency }}</p>
     <h4>Detalle:</h4>
     <table class="table table-striped">
       <thead>

@@ -1,1 +1,15 @@
-<p>login works!</p>
+<!-- src/app/login/login.component.html -->
+<div class="container">
+  <h2>Login</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="dni">DNI:</label>
+      <input type="text" class="form-control" id="dni" [(ngModel)]="dni" name="dni" required>
+    </div>
+    <div class="form-group">
+      <label for="telefono">Phone Number:</label>
+      <input type="text" class="form-control" id="telefono" [(ngModel)]="telefono" name="telefono" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+  </form>
+</div>
